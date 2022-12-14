@@ -169,10 +169,10 @@ public class MathConsumer {
         
         //Reservar(int id, int day, String time_of_day, String email)
         //Reservar(3, 1, "Almoço", "test");
-        ListarMesas("Almoço", "1");
+        //ListarMesas("Almoço", "1");
         //cancelar(int id, String email, String day, String time_of_day)
-        cancelar(3, "test", "1", "Almoço");
-        ListarMesas("Almoço", "1");
+        //cancelar(3, "test", "1", "Almoço");
+        //ListarMesas("Almoço", "1");
         
         Scanner in = new Scanner(System.in);
         String line;
