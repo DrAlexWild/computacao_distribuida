@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="project_utility_service" targetNamespace="http://default_package/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://default_package/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://default_package/" schemaLocation="projectutility_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="listar_mesas">
+    <wsdl:part name="parameters" element="tns:listar_mesas">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listar_mesasResponse">
+    <wsdl:part name="parameters" element="tns:listar_mesasResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelarResponse">
+    <wsdl:part name="parameters" element="tns:cancelarResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reservarResponse">
+    <wsdl:part name="parameters" element="tns:reservarResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reservar">
+    <wsdl:part name="parameters" element="tns:reservar">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelar">
+    <wsdl:part name="parameters" element="tns:cancelar">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProjectUtility">
+    <wsdl:operation name="listar_mesas">
+      <wsdl:input name="listar_mesas" message="tns:listar_mesas">
+    </wsdl:input>
+      <wsdl:output name="listar_mesasResponse" message="tns:listar_mesasResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reservar">
+      <wsdl:input name="reservar" message="tns:reservar">
+    </wsdl:input>
+      <wsdl:output name="reservarResponse" message="tns:reservarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelar">
+      <wsdl:input name="cancelar" message="tns:cancelar">
+    </wsdl:input>
+      <wsdl:output name="cancelarResponse" message="tns:cancelarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="project_utility_serviceSoapBinding" type="tns:ProjectUtility">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="listar_mesas">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listar_mesas">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listar_mesasResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="reservar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="reservar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reservarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelar">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancelar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="project_utility_service">
+    <wsdl:port name="project_utility_port" binding="tns:project_utility_serviceSoapBinding">
+      <soap:address location="http://localhost:8080/project_rmi4/services/project_utility_port"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
