@@ -3,13 +3,15 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import default_package.ProjectUtility;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,48 +28,124 @@ public class MathConsumer {
 
 	public static void ListarMesas(String time_of_day, String day) {  
 		try {
-	        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-	        factory.setAddress("http://localhost:8080/project_rmi4/services/project_utility_port"); 
-	        factory.setServiceClass(ProjectUtility.class);        
-	        Object client = factory.create();
-	        String response = ((ProjectUtility)client).listarMesas(time_of_day, day);
-	        System.out.println(response);
+			
+	        //http://localhost:8080/project_rest/rest?_wadl
+			URL url = new URL("http://localhost:8080/project_rest/rest/listar_mesas");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+
+                    String input = time_of_day + " " + day;
+
+                    OutputStream os = conn.getOutputStream();
+                    os.write(input.getBytes());
+                    os.flush();
+
+                    Scanner scanner;
+                    String response;
+                    if (conn.getResponseCode() != 200) {
+                        scanner = new Scanner(conn.getErrorStream());
+                        response = "Error From Server \n\n";
+                    } else {
+                        scanner = new Scanner(conn.getInputStream());
+                        response = "Response From Server \n\n";
+                    }
+                    scanner.useDelimiter("\\Z");
+                    System.out.println(response + scanner.next());
+                    scanner.close();
+                    conn.disconnect();
+			
+	        //String response = ((ProjectUtility)client).listarMesas(time_of_day, day);
+	        //System.out.println(response);
 	        
 	    } catch (SecurityException e) {
 	        e.printStackTrace();
 	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}
 	
 	private static void Reservar(int id, int day, String time_of_day, String email) {  
 		try {
-	        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-	        factory.setAddress("http://localhost:8080/project_rmi4/services/project_utility_port"); 
-	        factory.setServiceClass(ProjectUtility.class);        
-	        Object client = factory.create();
-	        String response = ((ProjectUtility)client).reservar(id, day, time_of_day, email);
-	        System.out.println(response);
+			//http://localhost:8080/project_rest/rest?_wadl
+			URL url = new URL("http://localhost:8080/project_rest/rest/reservar");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+
+                    String input = id + " " + day + " " + time_of_day + " " + email;
+
+                    OutputStream os = conn.getOutputStream();
+                    os.write(input.getBytes());
+                    os.flush();
+
+                    Scanner scanner;
+                    String response;
+                    if (conn.getResponseCode() != 200) {
+                        scanner = new Scanner(conn.getErrorStream());
+                        response = "Error From Server \n\n";
+                    } else {
+                        scanner = new Scanner(conn.getInputStream());
+                        response = "Response From Server \n\n";
+                    }
+                    scanner.useDelimiter("\\Z");
+                    System.out.println(response + scanner.next());
+                    scanner.close();
+                    conn.disconnect();
+			
+	        //String response = ((ProjectUtility)client).listarMesas(time_of_day, day);
+	        //System.out.println(response);
 	        
 	    } catch (SecurityException e) {
 	        e.printStackTrace();
 	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}
 	
 	private static void cancelar(int id, String email, String day, String time_of_day) {  
 		try {
-	        JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-	        factory.setAddress("http://localhost:8080/project_rmi4/services/project_utility_port"); 
-	        factory.setServiceClass(ProjectUtility.class);        
-	        Object client = factory.create();
-	        String response = ((ProjectUtility)client).cancelar(id, email, day, time_of_day);
-	        System.out.println(response);
+			//http://localhost:8080/project_rest/rest?_wadl
+			URL url = new URL("http://localhost:8080/project_rest/rest/cancelar");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+
+                    String input = id + " " + email + " " + day + " " + time_of_day;
+
+                    OutputStream os = conn.getOutputStream();
+                    os.write(input.getBytes());
+                    os.flush();
+
+                    Scanner scanner;
+                    String response;
+                    if (conn.getResponseCode() != 200) {
+                        scanner = new Scanner(conn.getErrorStream());
+                        response = "Error From Server \n\n";
+                    } else {
+                        scanner = new Scanner(conn.getInputStream());
+                        response = "Response From Server \n\n";
+                    }
+                    scanner.useDelimiter("\\Z");
+                    System.out.println(response + scanner.next());
+                    scanner.close();
+                    conn.disconnect();
+			
+	        //String response = ((ProjectUtility)client).listarMesas(time_of_day, day);
+	        //System.out.println(response);
 	        
 	    } catch (SecurityException e) {
 	        e.printStackTrace();
 	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
 	}
@@ -165,37 +243,11 @@ public class MathConsumer {
 
     public static void main(String[] args) {
     	System.out.println("Bem-vindo ao Restaurante!");
-        System.out.println("Versão: SOAP Webservices");
+        System.out.println("Versão: REST Webservices");
         
-        //Reservar(int id, int day, String time_of_day, String email)
-        //Reservar(3, 1, "Almoço", "test");
-        //ListarMesas("Almoço", "1");
-        //cancelar(int id, String email, String day, String time_of_day)
-        //cancelar(3, "test", "1", "Almoço");
-        //ListarMesas("Almoço", "1");
         
         Scanner in = new Scanner(System.in);
         String line;
-        /*do {
-            System.out.print("Operação: ");
-            line = in.nextLine().toUpperCase();
-            execute(line);
-        } while (line != null && !line.equals("SAIR"));
-        in.close();*/
-        
-        /*
-        System.out.println("Adeus.");
-        registar_user_client("test@gmail.com", "test");
-        
-        ArrayList<User> users = read_file_users_client();
-        login("test@gmail.com", "test");
-        
-        for(User user: users){
-            System.out.println(user);
-        }
-        */
-        
-        //cancelar(1, "1", "Almoço", "test");
         
         while(true) {
             menu();
